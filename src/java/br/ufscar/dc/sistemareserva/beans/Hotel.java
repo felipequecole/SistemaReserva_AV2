@@ -5,11 +5,13 @@
  */
 package br.ufscar.dc.sistemareserva.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author frankson
  */
-public class Hotel {
+public class Hotel implements Serializable{
     String cnpj, nome, senha, cidade;
 
     public String getCnpj() {

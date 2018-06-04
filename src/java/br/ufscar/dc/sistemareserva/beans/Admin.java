@@ -5,11 +5,13 @@
  */
 package br.ufscar.dc.sistemareserva.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author felipequecole
  */
-public class Admin {
+public class Admin implements Serializable{
     String email, senha, nome; 
 
     public String getNome() {
