@@ -10,14 +10,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.sql.DataSource;
 
 /**
  *
  * @author felipequecole
  */
+@RequestScoped
 public class AdminDAO {
 
     private final static String BUSCAR_ADMIN_SQL = "select "
@@ -25,11 +26,9 @@ public class AdminDAO {
             + "from admin "
             + "where nome=?";
 
+    @Resource(name = "jdbc/SistemaReservaDBLocal")
     DataSource datasource;
 
-    public AdminDAO(DataSource datasource) {
-        this.datasource = datasource;
-    }
 
     public Admin buscaAdmin(String username) throws SQLException {
         Admin admin = new Admin();

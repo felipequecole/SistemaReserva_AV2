@@ -15,12 +15,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.sql.DataSource;
 
 /**
  *
  * @author felipequecole
  */
+@RequestScoped
 public class PromocaoDAO {
 
     private final static String CRIAR_PROMOCAO_SQL = "insert into promocao "
@@ -42,6 +45,7 @@ public class PromocaoDAO {
             + "from promocao "
             + "where url=? and cnpj=? and data_inicio=?";
 
+    @Resource(name = "jdbc/SistemaReservaDBLocal")
     DataSource datasource;
 
     public PromocaoDAO(DataSource datasource) {
