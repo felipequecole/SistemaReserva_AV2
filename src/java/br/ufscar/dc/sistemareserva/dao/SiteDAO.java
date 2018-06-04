@@ -10,11 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.enterprise.context.RequestScoped;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
@@ -22,6 +21,7 @@ import javax.sql.DataSource;
  *
  * @author felipequecole
  */
+@RequestScoped
 public class SiteDAO {
 
     // fazer strings sql
@@ -38,11 +38,9 @@ public class SiteDAO {
             + "nome,url "
             + "from site";
 
+    @Resource(name = "jdbc/SistemaReservaDBLocal")
     DataSource datasource;
 
-    public SiteDAO(DataSource datasource) {
-        this.datasource = datasource;
-    }
 
     public Site gravarSite(Site s) throws SQLException, NamingException {
         try (Connection con = datasource.getConnection();
