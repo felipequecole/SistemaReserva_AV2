@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -44,12 +46,33 @@ public class NovoHotel implements Serializable {
     public String gravarHotel() throws SQLException, NamingException {
 
         Hotel h = hotelDao.gravaHotel(dadosHotel);
-        
+
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Flash flash = facesContext.getExternalContext().getFlash();
         flash.setKeepMessages(true);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hotel cadastrado"));
-        
+
         return "index?faces-redirect=true";
     }
+
+    public void validaCNPJ(FacesContext context, UIComponent toValidate, String value) {
+
+        
+        if (value.matches("[a-zA-Z]+")) {
+            ((UIInput) toValidate).setValid(false);
+            FacesMessage message = new FacesMessage("CNPJ não deve conter letras");
+            context.addMessage(toValidate.getClientId(context), message);
+        }
+
+    }
+    
+    public void validaSenha(FacesContext context, UIComponent toValidate, String value){
+    
+        if  ((value.length() < 6)) {
+            ((UIInput) toValidate).setValid(false);
+            FacesMessage message = new FacesMessage("Senha deve conter no minimo 6 digitos" );
+            context.addMessage(toValidate.getClientId(context), message);
+        }
+    }
+   
 }
