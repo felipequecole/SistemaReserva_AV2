@@ -5,13 +5,14 @@
  */
 package br.ufscar.dc.sistemareserva.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author felipequecole
  */
-public class Promocao {
+public class Promocao implements Serializable{
     private int id; 
     private String cnpj, url;
     private float preco;

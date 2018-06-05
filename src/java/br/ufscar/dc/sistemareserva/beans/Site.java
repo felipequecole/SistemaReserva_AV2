@@ -5,11 +5,13 @@
  */
 package br.ufscar.dc.sistemareserva.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author felipequecole
  */
-public class Site {
+public class Site implements Serializable{
     private String url, nome, senha, telefone;
 
     public String getUrl() {
