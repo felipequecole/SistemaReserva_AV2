@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Sistema de Reserva</title>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
+        <h:outputStylesheet library="css" name="estilo.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+
+                            data-target="#myNavbar">
+
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!--                    <a class="navbar-left">
+                                            <h:graphicImage class="logo" name="logo.png" library="imagens"
+                    
+                                                            width="50" height="50" />
+                                        </a>-->
+                    <a class="navbar-brand" jsf:outcome="index">
+                        Sistema Reserva
+                    </a>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <h:form class="navbar-form" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="#{listaHotel.cidadePesquisa}" placeholder="Pesquisar hotel por cidade" name="cidade"/>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" jsf:outcome="#{listaHotel.listarPorCidade()}"><i class="fas fa-search"></i></button>
+                                </div>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="#{view.viewId=='/index.xhtml'?'active':''}"><a
+
+                                jsf:outcome="index">Home</a></li>
+
+
+                        <li class="#{view.viewId=='/listaPalpites.xhtml'?'active':''}"><a
+
+                                jsf:outcome="index">Ver hoteis</a></li>
+
+                        <c:if test="${sessionScope.user != null}">
+                            <li>
+                                ${sessionScope.user} (${sessionScope.role})
+                            </li>
+                        </c:if>
+
+                        <c:if test="${sessionScope.user != null}">
+                            <li>
+                                <a
+
+                                    jsf:outcome="#{acesso.logout()}">logout</a>
+                            </li>
+                        </c:if>
+
+                        <c:if test="${empty sessionScope.user}">
+                            <li >
+                                <a
+
+                                    jsf:outcome="#{acesso.login()}">Identifique-se</a>
+                            </li>
+                        </c:if>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>>
+
+        <div id="body" class="container main-container">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <footer class="navbar-inverse footer">
+            <table class="footer">
+                <tbody>
+                    <tr>
+                        <td class="align-middle text-center">Sistema de Reserva: Todos os direitos
+                            conservados (no sal)</td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-center"> Grupo: </td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-center"> Eduardo Yamauchi </td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-center"> Felipe Quécole </td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-center"> Frankson Babanavara </td>
+                    </tr>
+                </tbody>
+            </table>
+        </footer>
+    </h:body>
+</html>
+
