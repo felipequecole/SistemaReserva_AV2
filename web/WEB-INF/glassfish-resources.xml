@@ -10,6 +10,6 @@
     <property name="PortNumber" value="1527"/>
     <property name="DatabaseName" value="SistemaReserva"/>
     <property name="User" value="SistemaReserva"/>
-    <property name="Password" value="sistemareserva"/>
+    <property name="Password" value="SistemaReserva"/>
   </jdbc-connection-pool>
 </resources>
