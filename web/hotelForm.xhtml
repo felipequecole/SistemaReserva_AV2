@@ -12,7 +12,7 @@
             Digite os dados do novo hotel:<br/>
             CNPJ:
             <h:inputText id="cnpj" label="CNPJ" required="true"
-                         value="#{novoHotel.dadosHotel.cnpj}" />
+                         validator="#{novoHotel.validaCNPJ}" value="#{novoHotel.dadosHotel.cnpj}" />
             <h:message for="cnpj"/>
             <br/>
             Nome do hotel:
@@ -22,6 +22,7 @@
             <br/>
             Senha:
             <h:inputSecret id="senha" label="Senha" required="true"
+                           validator="#{novoHotel.validaSenha}"
                          value="#{novoHotel.dadosHotel.senha}" />
             <h:message for="senha"/>
             <br/>
