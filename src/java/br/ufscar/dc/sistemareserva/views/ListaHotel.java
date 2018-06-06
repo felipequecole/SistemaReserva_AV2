@@ -10,6 +10,9 @@ import br.ufscar.dc.sistemareserva.dao.HotelDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,6 +28,7 @@ public class ListaHotel implements Serializable {
 
     @Inject
     HotelDAO hotelDao;
+    String cidadePesquisa;
     List<Hotel> listaHotel;
 
     public List<Hotel> getListaHotel() {
@@ -39,4 +43,33 @@ public class ListaHotel implements Serializable {
         listaHotel = hotelDao.listaTodosHoteis();
         return "listaHotel";
     }
+
+    public String getCidadePesquisa() {
+        return cidadePesquisa;
+    }
+
+    public void setCidadePesquisa(String cidadePesquisa) {
+        this.cidadePesquisa = cidadePesquisa;
+    }
+
+    public String listarPorCidade(String cidade) throws SQLException, NamingException {
+        listaHotel = hotelDao.listaTodosHoteisCidade(cidade);
+        return "listaHotel";
+    }
+
+    public String listarPorCidade() {
+        return "index?faces-redirect=true";
+    }
+
+    @PostConstruct
+    public void init(){
+        try {
+            listaHotel = hotelDao.listaTodosHoteis();
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaHotel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(ListaHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
