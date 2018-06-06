@@ -57,8 +57,9 @@ public class ListaHotel implements Serializable {
         return "listaHotel";
     }
 
-    public String listarPorCidade() {
-        return "index?faces-redirect=true";
+    public String listarPorCidade() throws SQLException, NamingException {
+        listaHotel = hotelDao.listaTodosHoteisCidade(cidadePesquisa);
+        return "listaHotel";
     }
 
     @PostConstruct

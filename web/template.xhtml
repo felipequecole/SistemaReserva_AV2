@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sistema de Reserva</title>
         <h:outputScript library="js" name="jquery-3.3.1.min.js"/>
@@ -38,9 +39,12 @@
                 <div class="col-sm-3 col-md-3">
                     <h:form class="navbar-form" role="search">
                         <div class="input-group">
-                            <input type="text" class="form-control" value="#{listaHotel.cidadePesquisa}" placeholder="Pesquisar hotel por cidade" name="cidade"/>
+                            <h:inputText class="form-control" value="#{listaHotel.cidadePesquisa}">
+                                <f:passThroughAttribute name="placeholder" value="Pesquisar hotel por cidade" />
+                            </h:inputText>
+                            
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default" jsf:outcome="#{listaHotel.listarPorCidade()}"><i class="fas fa-search"></i></button>
+                                    <h:commandButton class="btn" type="submit" value="Pesquisar" action="#{listaHotel.listarPorCidade()}"/>
                                 </div>
                         </div>
                     </h:form>
@@ -58,7 +62,9 @@
 
                         <c:if test="${sessionScope.user != null}">
                             <li>
+                                <a>
                                 ${sessionScope.user} (${sessionScope.role})
+                                </a>
                             </li>
                         </c:if>
 
@@ -74,7 +80,7 @@
                             <li >
                                 <a
 
-                                    jsf:outcome="#{acesso.login()}">Identifique-se</a>
+                                    jsf:outcome="login">Identifique-se</a>
                             </li>
                         </c:if>
 

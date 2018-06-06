@@ -1,38 +1,44 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Cadastro de hotel</title>
     </h:head>
     <h:body>
-        <h1>Novo hotel</h1>
-        <hr />
-        <h:form>
-            Digite os dados do novo hotel:<br/>
-            CNPJ:
-            <h:inputText id="cnpj" label="CNPJ" required="true"
-                         validator="#{novoHotel.validaCNPJ}" value="#{novoHotel.dadosHotel.cnpj}" />
-            <h:message for="cnpj"/>
-            <br/>
-            Nome do hotel:
-            <h:inputText id="nome" label="Nome do hotel" required="true"
-                         value="#{novoHotel.dadosHotel.nome}" />
-            <h:message for="nome"/>
-            <br/>
-            Senha:
-            <h:inputSecret id="senha" label="Senha" required="true"
-                           validator="#{novoHotel.validaSenha}"
-                         value="#{novoHotel.dadosHotel.senha}" />
-            <h:message for="senha"/>
-            <br/>
-            Cidade:
-            <h:inputText id="cidade" label="Cidade" required="true"
-                         value="#{novoHotel.dadosHotel.cidade}" />
-            <h:message for="cidade"/>
-            <br/>
-            <h:commandButton id="confirmar" value="Confirmar" action="#{novoHotel.gravarHotel()}" />
-        </h:form>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content"> 
+                <h1>Novo hotel</h1>
+                <hr />
+                <h:form>
+                    Digite os dados do novo hotel:<br/>
+                    CNPJ:
+                    <h:inputText id="cnpj" label="CNPJ" required="true"
+                                 validator="#{novoHotel.validaCNPJ}" value="#{novoHotel.dadosHotel.cnpj}" />
+                    <h:message for="cnpj"/>
+                    <br/>
+                    Nome do hotel:
+                    <h:inputText id="nome" label="Nome do hotel" required="true"
+                                 value="#{novoHotel.dadosHotel.nome}" />
+                    <h:message for="nome"/>
+                    <br/>
+                    Senha:
+                    <h:inputSecret id="senha" label="Senha" required="true"
+                                   validator="#{novoHotel.validaSenha}"
+                                   value="#{novoHotel.dadosHotel.senha}" />
+                    <h:message for="senha"/>
+                    <br/>
+                    Cidade:
+                    <h:inputText id="cidade" label="Cidade" required="true"
+                                 value="#{novoHotel.dadosHotel.cidade}" />
+                    <h:message for="cidade"/>
+                    <br/>
+                    <h:commandButton id="confirmar" value="Confirmar" action="#{novoHotel.gravarHotel()}" />
+                </h:form>
+            </ui:define> 
+        </ui:composition>
+
     </h:body>
 </html>
 

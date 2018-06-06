@@ -3,34 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Lista hoteis</title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:dataTable id="hoteis"
-                         var="hotel"
-                         value="#{listaHotel.listaHotel}"
-                         widgetVar="hoteisTable"
-                         emptyMessage="Nenhum hotel encontrado"
-                         rows="10"
-                         paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink}
-                         {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15">
-                <p:column headerText="CNPJ">
-                    <h:outputText id="cnpj" value="#{hotel.cnpj}" />
-                </p:column>>
-                <p:column headerText="Nome">
-                    <h:outputText id="nome" value="#{hotel.nome}" />
-                </p:column>
-                <p:column headerText="Cidade">
-                    <h:outputText id="cidade" value="#{hotel.cidade}" />
-                </p:column>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable id="hoteis"
+                                 var="hotel"
+                                 value="#{listaHotel.listaHotel}"
+                                 widgetVar="hoteisTable"
+                                 emptyMessage="Nenhum hotel encontrado"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="CNPJ">
+                            <h:outputText id="cnpj" value="#{hotel.cnpj}" />
+                        </p:column>>
+                        <p:column headerText="Nome">
+                            <h:outputText id="nome" value="#{hotel.nome}" />
+                        </p:column>
+                        <p:column headerText="Cidade">
+                            <h:outputText id="cidade" value="#{hotel.cidade}" />
+                        </p:column>
 
-            </p:dataTable>
-        </h:form>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
