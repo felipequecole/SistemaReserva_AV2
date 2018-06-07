@@ -36,6 +36,9 @@ public class ListaSite implements Serializable {
    
     public String verTodosSites() throws SQLException, NamingException{
         listaSites = siteDAO.listarTodosSites();
+        for (Site s : listaSites){
+            System.out.println(s.getTelefone());
+        }
         return "listaSites";
     
     }

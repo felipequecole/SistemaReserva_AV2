@@ -33,13 +33,15 @@
                     Telefone: <h:inputText id="telefone"
                                            label="Telefone"
                                            required="true"
+                                           validator="#{novoSite.validarTelefone}"
                                            value="#{novoSite.dadosSite.telefone}" />
                     <h:message for="telefone"/>
                     <br/>
 
-                    Senha: <h:inputText id="senha"
+                    Senha: <h:inputSecret id="senha"
                                         label="Senha"
                                         required="true"
+                                        validator="#{novoSite.validarSenha}"
                                         value="#{novoSite.dadosSite.senha}"/>
                     <h:message for="senha"/>
                     <br/>
