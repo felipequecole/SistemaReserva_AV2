@@ -6,13 +6,14 @@
 package br.ufscar.dc.sistemareserva.views;
 
 import br.ufscar.dc.sistemareserva.beans.Admin;
+import br.ufscar.dc.sistemareserva.beans.Hotel;
+import br.ufscar.dc.sistemareserva.beans.Site;
 import br.ufscar.dc.sistemareserva.dao.AdminDAO;
 import br.ufscar.dc.sistemareserva.dao.HotelDAO;
 import br.ufscar.dc.sistemareserva.dao.SiteDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -75,23 +76,45 @@ public class Acesso implements Serializable {
                     FacesContext.getCurrentInstance().
                         getExternalContext().getSessionMap().
                             put("role", "admin");
-                    return "index?faces-redirect=true";
-                    } else {
-                        this.setMessages("Senha deve conter no minimo 6 digitos" );
-                        return "login?faces-redirect=true";
+                    return "index?faces-redirect=true";                    
                     }
-                } else {
-                        this.setMessages("Usuário ou senha inválidos" );
-                        return "login?faces-redirect=true";
                 }
+                this.setMessages("Usuário ou senha inválidos." );
+                return "login?faces-redirect=true";
             case "hotel":
-                break;
+                Hotel hotel = hdao.buscaHotel(this.getUsername());
+                if (hotel != null){
+                    if (hotel.getSenha().equals(this.getSenha())){
+                        FacesContext.getCurrentInstance().
+                                getExternalContext().getSessionMap().
+                                 put("user", hotel.getNome());
+                    FacesContext.getCurrentInstance().
+                        getExternalContext().getSessionMap().
+                            put("role", "hotel");
+                    return "index?faces-redirect=true";
+                    }
+                }
+                this.setMessages("Usuário ou senha inválidos." );
+                return "login?faces-redirect=true";
             case "site":
-                break;
+                Site site = sdao.buscarSite(this.getUsername());
+                if (site != null){
+                    if (site.getSenha().equals(this.getSenha())){
+                        FacesContext.getCurrentInstance().
+                                getExternalContext().getSessionMap().
+                                 put("user", site.getNome());
+                    FacesContext.getCurrentInstance().
+                        getExternalContext().getSessionMap().
+                            put("role", "site");
+                    return "index?faces-redirect=true";
+                    }
+                }
+                this.setMessages("Usuário ou senha inválidos." );
+                return "login?faces-redirect=true";
             default:
-                break;
+                this.setMessages("Ops, algo deu errado. Tente novamente");
+                return "login?faces-redirect=true";
         }
-        return "index";
     }
     
     public String logout(){
