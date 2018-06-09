@@ -5,15 +5,17 @@
  */
 package br.ufscar.dc.sistemareserva.views;
 
+import br.ufscar.dc.sistemareserva.beans.Admin;
 import br.ufscar.dc.sistemareserva.dao.AdminDAO;
 import br.ufscar.dc.sistemareserva.dao.HotelDAO;
 import br.ufscar.dc.sistemareserva.dao.SiteDAO;
 import java.io.Serializable;
+import java.sql.SQLException;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,11 +24,11 @@ import javax.servlet.http.HttpSession;
 @Named
 @SessionScoped
 public class Acesso implements Serializable {
-    @Inject AdminDAO adminDAO; 
-    @Inject SiteDAO siteDAO;
-    @Inject HotelDAO hotelDAO; 
+    @Inject AdminDAO adao; 
+    @Inject SiteDAO sdao;
+    @Inject HotelDAO hdao; 
     
-    String username, senha, tipo; 
+    private String username, senha, tipo, messages = null; 
 
     public String getTipo() {
         return tipo;
@@ -38,6 +40,14 @@ public class Acesso implements Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
     }
 
     public void setUsername(String username) {
@@ -52,14 +62,28 @@ public class Acesso implements Serializable {
         this.senha = senha;
     }
     
-    public String login(){
+    public String login() throws SQLException{
+        this.setMessages(null);
         switch (tipo) {
             case "admin":
-                FacesContext.getCurrentInstance().
-                        getExternalContext().getSessionMap().put("user", "admin");
-                FacesContext.getCurrentInstance().
-                        getExternalContext().getSessionMap().put("role", "admin");
-                break;
+                Admin admin = adao.buscaAdmin(this.getUsername());
+                if (admin != null){
+                    if (admin.getSenha().equals(this.getSenha())){
+                         FacesContext.getCurrentInstance().
+                                getExternalContext().getSessionMap().
+                                 put("user", this.getUsername());
+                    FacesContext.getCurrentInstance().
+                        getExternalContext().getSessionMap().
+                            put("role", "admin");
+                    return "index?faces-redirect=true";
+                    } else {
+                        this.setMessages("Senha deve conter no minimo 6 digitos" );
+                        return "login?faces-redirect=true";
+                    }
+                } else {
+                        this.setMessages("Usuário ou senha inválidos" );
+                        return "login?faces-redirect=true";
+                }
             case "hotel":
                 break;
             case "site":
@@ -71,6 +95,8 @@ public class Acesso implements Serializable {
     }
     
     public String logout(){
-        return "index";
+        this.setMessages(null); 
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index?faces-redirect=true";
     }
 }
