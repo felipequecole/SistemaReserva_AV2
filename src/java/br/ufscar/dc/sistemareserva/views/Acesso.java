@@ -11,6 +11,7 @@ import br.ufscar.dc.sistemareserva.beans.Site;
 import br.ufscar.dc.sistemareserva.dao.AdminDAO;
 import br.ufscar.dc.sistemareserva.dao.HotelDAO;
 import br.ufscar.dc.sistemareserva.dao.SiteDAO;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import javax.enterprise.context.SessionScoped;
@@ -30,6 +31,40 @@ public class Acesso implements Serializable {
     @Inject HotelDAO hdao; 
     
     private String username, senha, tipo, messages = null; 
+    private String role=null, cnpj=null, url=null, user=null;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+    
 
     public String getTipo() {
         return tipo;
@@ -70,12 +105,9 @@ public class Acesso implements Serializable {
                 Admin admin = adao.buscaAdmin(this.getUsername());
                 if (admin != null){
                     if (admin.getSenha().equals(this.getSenha())){
-                         FacesContext.getCurrentInstance().
-                                getExternalContext().getSessionMap().
-                                 put("user", this.getUsername());
-                    FacesContext.getCurrentInstance().
-                        getExternalContext().getSessionMap().
-                            put("role", "admin");
+                         this.setUser(this.getUsername());
+                         this.setRole("admin");
+                         this.cleanData();
                     return "index?faces-redirect=true";                    
                     }
                 }
@@ -85,12 +117,10 @@ public class Acesso implements Serializable {
                 Hotel hotel = hdao.buscaHotel(this.getUsername());
                 if (hotel != null){
                     if (hotel.getSenha().equals(this.getSenha())){
-                        FacesContext.getCurrentInstance().
-                                getExternalContext().getSessionMap().
-                                 put("user", hotel.getNome());
-                    FacesContext.getCurrentInstance().
-                        getExternalContext().getSessionMap().
-                            put("role", "hotel");
+                        this.setUser(hotel.getNome());
+                        this.setCnpj(hotel.getCnpj());
+                        this.setRole("hotel");
+                        this.cleanData();
                     return "index?faces-redirect=true";
                     }
                 }
@@ -100,12 +130,10 @@ public class Acesso implements Serializable {
                 Site site = sdao.buscarSite(this.getUsername());
                 if (site != null){
                     if (site.getSenha().equals(this.getSenha())){
-                        FacesContext.getCurrentInstance().
-                                getExternalContext().getSessionMap().
-                                 put("user", site.getNome());
-                    FacesContext.getCurrentInstance().
-                        getExternalContext().getSessionMap().
-                            put("role", "site");
+                        this.setUser(site.getNome());
+                        this.setUrl(site.getUrl());
+                        this.setRole("site");
+                        this.cleanData();
                     return "index?faces-redirect=true";
                     }
                 }
@@ -117,9 +145,27 @@ public class Acesso implements Serializable {
         }
     }
     
+    
     public String logout(){
-        this.setMessages(null); 
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        System.out.println("Chamou logout");
+        this.setMessages(null);
+        this.setRole(null);
+        this.setUser(null);
+        this.setCnpj(null);
+        this.setUrl(null);
         return "index?faces-redirect=true";
+    }
+    
+    public void getPermission(String role) throws IOException{
+        if (this.getRole() == null || !this.getRole().equals(role)){
+            FacesContext.getCurrentInstance().getExternalContext().
+                    redirect("forbidden.xhtml");
+        } 
+    }
+    
+    public void cleanData(){
+        this.setSenha(null);
+        this.setUsername(null);
+        this.setTipo(null);
     }
 }

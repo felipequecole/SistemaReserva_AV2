@@ -10,6 +10,9 @@ import br.ufscar.dc.sistemareserva.dao.SiteDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -41,6 +44,15 @@ public class ListaSite implements Serializable {
         }
         return "listaSites";
     
+    }
+    
+    @PostConstruct
+    public void init(){
+        try {
+            listaSites = siteDAO.listarTodosSites();
+        } catch (SQLException ex) {
+            Logger.getLogger(ListaHotel.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
 }

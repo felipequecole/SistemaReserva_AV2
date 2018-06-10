@@ -33,57 +33,59 @@
                                                             width="50" height="50" />
                                         </a>-->
                     <a class="navbar-brand" jsf:outcome="index">
-                        Sistema Reserva
+                        <b>Sistema de Reservas</b>
                     </a>
                 </div>
-                <div class="col-sm-3 col-md-3">
+                <div class="col-sm-4 col-md-4">
                     <h:form class="navbar-form" role="search">
                         <div class="input-group">
                             <h:inputText class="form-control" value="#{listaHotel.cidadePesquisa}">
                                 <f:passThroughAttribute name="placeholder" value="Pesquisar hotel por cidade" />
                             </h:inputText>
-                            
-                                <div class="input-group-btn">
-                                    <h:commandButton class="btn" type="submit" value="Pesquisar" action="#{listaHotel.listarPorCidade()}"/>
-                                </div>
+
+                            <div class="input-group-btn">
+                                <h:commandButton class="btn" type="submit" value="Pesquisar" action="#{listaHotel.listarPorCidade()}"/>
+                            </div>
                         </div>
                     </h:form>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="#{view.viewId=='/index.xhtml'?'active':''}"><a
+                        
+                            <li class="#{view.viewId=='/index.xhtml'?'active':''}"><a
 
-                                jsf:outcome="index">Home</a></li>
+                                    jsf:outcome="index">Home</a></li>
 
 
-                        <li class="#{view.viewId=='/listaPalpites.xhtml'?'active':''}"><a
+                            <li class="#{view.viewId=='/listaHotel.xhtml'?'active':''}">
+                                <h:form>
+                                <h:commandLink styleClass="nav-a" action="#{listaHotel.verTodosHoteis()}">Ver hoteis</h:commandLink>
+                                </h:form>
+                            </li>   
 
-                                jsf:outcome="index">Ver hoteis</a></li>
+                            <c:if test="#{acesso.role != null}">
+                                <li>
+                                    <a>
+                                        #{acesso.user} (#{acesso.role})
+                                    </a>
+                                </li>
 
-                        <c:if test="${sessionScope.user != null}">
-                            <li>
-                                <a>
-                                ${sessionScope.user} (${sessionScope.role})
-                                </a>
-                            </li>
-                        </c:if>
 
-                        <c:if test="${sessionScope.user != null}">
-                            <li>
-                                <a
+                                <li>
+                                    <h:form>
+                                        <h:commandLink styleClass="nav-a" action="#{acesso.logout}">Fazer logout</h:commandLink>
+                                    </h:form>
+                                </li>
+                            </c:if>
 
-                                    jsf:outcome="#{acesso.logout()}">logout</a>
-                            </li>
-                        </c:if>
+                            <c:if test="#{acesso.role == null}">
+                                <li >
+                                    <a
 
-                        <c:if test="${empty sessionScope.user}">
-                            <li >
-                                <a
-
-                                    jsf:outcome="login">Identifique-se</a>
-                            </li>
-                        </c:if>
-
+                                        jsf:outcome="login">Identifique-se</a>
+                                </li>
+                            </c:if>
+                       
                     </ul>
                 </div>
             </div>
