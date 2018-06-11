@@ -32,7 +32,8 @@
                                            jsf:id="cnpj"
                                            jsf:label="CNPJ"
                                            jsf:value="#{novaPromocao.dadosPromocao.cnpj = acesso.cnpj}"
-                                           disabled="true" />
+                                           disabled="true" 
+                                           jsf:binding="#{novaPromocao.inputCnpj}"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -43,38 +44,47 @@
                                            jsf:id="data_inicio"
                                            jsf:label="Data de início"
                                            jsf:value="#{novaPromocao.dadosPromocao.data_inicio}"
-                                           jsf:required="true">
-                                        <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                                           jsf:required="true"
+                                           jsf:binding="#{novaPromocao.inputData_inicio}">
+                                        <f:convertDateTime timeZone="GMT-3" dateStyle="short" type="date" pattern="yyyy-MM-dd" />
                                     </input>
                                     <h:message for="data_inicio" class="text text-danger" />
                                 </div>
                                 <label class="col-sm-2 control-label" for="data_fim">Data de término</label>
-                                 <div class="col-sm-4">
+                                <div class="col-sm-4">
                                     <input type="date"
                                            class="form-control"
                                            jsf:id="data_fim" 
                                            jsf:label="Data de término"
                                            jsf:value="#{novaPromocao.dadosPromocao.data_fim}"
-                                           jsf:required="true">
-                                        <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                                           jsf:required="true"
+                                           jsf:validator="#{novaPromocao.validaDataFim}"
+                                           jsf:binding="#{novaPromocao.inputData_fim}">
+                                        <f:convertDateTime timeZone="GMT-3" dateStyle="short" type="date" pattern="yyyy-MM-dd" />
                                     </input>
                                     <h:message for="data_fim" class="text text-danger" />
                                 </div>                              
                             </div>
                             <div class="form-group">
-                            <label class="col-sm-2  control-label" for="site">Site:</label>
-                            <div class="col-sm-4">
-                                <h:selectOneMenu class="form-control" id="site">
-                                    <c:forEach var="optSite" items="#{listaSite.listaSites}">
-                                        <f:selectItem itemValue="#{optSite.url}" itemLabel="#{optSite.nome}"/>       
-                                    </c:forEach>
-                                </h:selectOneMenu>
-                            </div>
-                            <label class="col-sm-2  control-label" for="preco">Valor:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" jsf:required="true" jsf:id="preco" value="#{novaPromocao.dadosPromocao.preco}"/>
-                                <h:message for="preco" class="text text-danger"/>
-                            </div>                            
+                                <label class="col-sm-2  control-label" for="site">Site:</label>
+                                <div class="col-sm-4">                                    
+                                    <h:selectOneMenu validator="#{novaPromocao.validaUrl}" class="form-control" id="url" value="#{novaPromocao.dadosPromocao.url}" binding="#{novaPromocao.inputUrl}">
+                                        <c:forEach var="optSite" items="#{listaSite.listaSites}">
+                                            <f:selectItem itemValue="#{optSite.url}" itemLabel="#{optSite.nome}"/>       
+                                        </c:forEach>
+                                    </h:selectOneMenu>
+                                    <h:message for="url" class="text text-danger"/>
+                                </div>
+                                <label class="col-sm-2  control-label" for="preco">Valor:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           jsf:required="true" 
+                                           jsf:id="preco" 
+                                           value="#{novaPromocao.dadosPromocao.preco}"
+                                           jsf:validator="#{novaPromocao.validaPreco}"/>
+                                    <h:message for="preco" class="text text-danger"/>
+                                </div>                            
                             </div>
                             <hr/>
                             <h:form>
@@ -83,8 +93,20 @@
                         </form>
                     </div>
                 </div>
+<!--                <script type="text/javascript">
+        <c:forEach var="optSite" items="#{listaSite.listaSites}">
+           $("#formPromocao\\:url").append( 
+            $("<option></option>")
+            .text("#{optSite.nome}")
+            .val("#{optSite.url}")
+        );  
+        </c:forEach>
+    </script>-->
             </ui:define>
         </ui:composition>
     </h:body>
+
+    
+
 </html>
 

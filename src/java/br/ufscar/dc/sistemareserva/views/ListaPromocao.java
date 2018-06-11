@@ -5,10 +5,12 @@
  */
 package br.ufscar.dc.sistemareserva.views;
 
-/**
- *
- * @author eduardo
- */
-public class ListaPromocao {
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+@Named
+@SessionScoped
+public class ListaPromocao implements Serializable{
     
 }
