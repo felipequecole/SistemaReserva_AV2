@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Sistema de reserva</title>
     </h:head>
@@ -12,8 +13,40 @@
         <ui:composition template="./template.xhtml">
             <ui:define name="content">
                 <h:messages class="text text-success" globalOnly="true" />
-              
-                <h1>Java é daora, eles disseram</h1>
+                <div class="container center-block">
+
+                    <h1 align="center">Sistema de Reserva</h1>
+                    <h3 align="center">Bem vindo, 
+                        <c:choose>
+                            <c:when test="#{acesso.user != null}">
+                                #{acesso.user}!
+                            </c:when>
+                            <c:otherwise>
+                                Visitante!
+                            </c:otherwise>
+                        </c:choose>
+                    </h3>
+                    <div align="center">
+                        <h:form>
+                            <c:choose>
+                                <c:when test="#{acesso.role == 'admin'}">
+                                    <h:commandButton value="Cadastrar hotel" class="btn btn-primary" action="hotelForm"/>
+                                    <h:commandButton style="margin-left: 5px" value="Cadastrar site" class="btn btn-primary" action="cadastraSite"/>
+                                </c:when>
+                                <c:when test="#{acesso.role == 'site'}">
+                                    <h:commandButton value="Ver promoções" class="btn btn-primary" action="#{listaPromocao.verPromocoesSite(acesso.url)}"/>
+                                </c:when>
+                                <c:when test="#{acesso.role == 'hotel'}">
+                                    <h:commandButton value="Cadastrar promoção" class="btn btn-primary" action="promocaoForm"/>
+                                    <h:commandButton style="margin-left: 5px" value="Ver Promoções" class="btn btn-primary" action="#{listaPromocao.verPromocoesHotel(acesso.cnpj)}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="text-danger"><b> Identifique-se para ter acesso a mais funcionalidades</b></p>
+                                </c:otherwise>
+                            </c:choose>
+                        </h:form>
+                    </div>
+                </div>
             </ui:define>
         </ui:composition>
 

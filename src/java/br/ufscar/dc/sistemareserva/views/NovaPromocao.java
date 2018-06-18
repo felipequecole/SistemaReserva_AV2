@@ -6,19 +6,13 @@
 package br.ufscar.dc.sistemareserva.views;
 
 import br.ufscar.dc.sistemareserva.beans.Promocao;
-import br.ufscar.dc.sistemareserva.beans.Site;
 import br.ufscar.dc.sistemareserva.dao.PromocaoDAO;
-import br.ufscar.dc.sistemareserva.dao.SiteDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -103,6 +97,7 @@ public class NovaPromocao implements Serializable {
         Flash flash = facesContext.getExternalContext().getFlash();
         flash.setKeepMessages(true);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Promoção cadastrada"));
+        dadosPromocao = new Promocao();
         return "index?faces-redirect=true";
     }
 
