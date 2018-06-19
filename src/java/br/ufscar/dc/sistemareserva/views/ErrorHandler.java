@@ -17,7 +17,7 @@ import javax.inject.Named;
 @RequestScoped
 public class ErrorHandler {
 
-    public String Message() {
+    public String getMessage() {
         String val = (String) FacesContext.getCurrentInstance().getExternalContext().
                 getRequestMap().get("javax.servlet.error.message");
         return val;

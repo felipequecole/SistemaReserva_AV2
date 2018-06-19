@@ -10,7 +10,9 @@
 
         <ui:composition template="./template.xhtml">
             <ui:define name="content">
-                <h>Deu ruim!</h>
+                <h1>Opa, parece que ocorreu um problema</h1>
+                <h:outputText value="Descrição: #{errorHandler.message}" />
+                
             </ui:define>
         </ui:composition>
     </h:body>
