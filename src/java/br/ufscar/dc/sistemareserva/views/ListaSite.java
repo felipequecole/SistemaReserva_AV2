@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.naming.NamingException;
@@ -24,7 +25,7 @@ import javax.naming.NamingException;
  */
 
 @Named
-@RequestScoped
+@SessionScoped
 public class ListaSite implements Serializable {
     List<Site> listaSites;
     @Inject SiteDAO siteDAO;
