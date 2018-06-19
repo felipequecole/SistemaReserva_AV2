@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Cadastro de hotel</title>
@@ -9,33 +10,65 @@
     <h:body>
         <ui:composition template="./template.xhtml">
             <ui:define name="content"> 
-                <h1>Novo hotel</h1>
-                <hr />
-                <h:form>
-                    Digite os dados do novo hotel:<br/>
-                    CNPJ:
-                    <h:inputText id="cnpj" label="CNPJ" required="true"
-                                 validator="#{novoHotel.validaCNPJ}" value="#{novoHotel.dadosHotel.cnpj}" />
-                    <h:message for="cnpj"/>
-                    <br/>
-                    Nome do hotel:
-                    <h:inputText id="nome" label="Nome do hotel" required="true"
-                                 value="#{novoHotel.dadosHotel.nome}" />
-                    <h:message for="nome"/>
-                    <br/>
-                    Senha:
-                    <h:inputSecret id="senha" label="Senha" required="true"
-                                   validator="#{novoHotel.validaSenha}"
-                                   value="#{novoHotel.dadosHotel.senha}" />
-                    <h:message for="senha"/>
-                    <br/>
-                    Cidade:
-                    <h:inputText id="cidade" label="Cidade" required="true"
-                                 value="#{novoHotel.dadosHotel.cidade}" />
-                    <h:message for="cidade"/>
-                    <br/>
-                    <h:commandButton id="confirmar" value="Confirmar" action="#{novoHotel.gravarHotel()}" />
-                </h:form>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h3>Cadastrar novo hotel</h3>
+                        <hr></hr>
+                        <form class="form-horizontal" jsf:id="formHotel">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="cnpj">CNPJ do Hotel</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="cnpj"
+                                           jsf:label="CNPJ"
+                                           jsf:required="true"
+                                           jsf:value="#{novoHotel.dadosHotel.cnpj}"
+                                           jsf:validator="#{novoHotel.validaCNPJ}"/>
+                                    <h:message for="cnpj" class="text text-danger"/>
+                                </div>
+                                <label class="col-sm-2 control-label" for="nome">Nome do Hotel</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="nome"
+                                           jsf:label="Nome"
+                                           jsf:required="true"
+                                           jsf:value="#{novoHotel.dadosHotel.nome}"/>
+                                    <h:message for="nome" class="text text-danger"/>
+                                </div>
+                                <label class="col-sm-2 control-label" for="senha">Senha</label>
+                                <div class="col-sm-4">
+                                    <input type="password"
+                                           class="form-control"
+                                           jsf:id="senha"
+                                           jsf:label="Senha"
+                                           jsf:required="true"
+                                           jsf:value="#{novoHotel.dadosHotel.senha}"
+                                           jsf:validator="#{novoHotel.validaSenha}"/>
+                                    <h:message for="senha" class="text text-danger"/>
+                                </div>
+                                <label class="col-sm-2 control-label" for="cidade">Cidade</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="cidade"
+                                           jsf:label="Cidade"
+                                           jsf:required="true"
+                                           jsf:value="#{novoHotel.dadosHotel.cidade}"/>
+                                    <h:message for="cidade" class="text text-danger"/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <h:form>
+                                <h:commandButton class="btn btn-primary" action="${novoHotel.gravarHotel()}" value="Confirmar"></h:commandButton>
+                            </h:form>
+                        </form>
+                  
+                    </div>
+                    
+                </div>
+                
             </ui:define> 
         </ui:composition>
 
