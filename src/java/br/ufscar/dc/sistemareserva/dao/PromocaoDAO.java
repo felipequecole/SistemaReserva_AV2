@@ -48,10 +48,6 @@ public class PromocaoDAO {
     @Resource(name = "jdbc/SistemaReservaDBLocal")
     DataSource datasource;
 
-    public PromocaoDAO(DataSource datasource) {
-        this.datasource = datasource;
-    }
-
     public Promocao gravaPromocao(Promocao promocao) throws SQLException {
 
         try (Connection con = datasource.getConnection();

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Sistema de reserva</title>
     </h:head>
@@ -21,13 +22,13 @@
                                     <h:form role="form">
                                         <fieldset>
                                             <div class="form-group">
-                                                <h:inputText label="Username" id="username" class="form-control" value="#{acesso.username}" required="true">
+                                                <h:inputText requiredMessage="Erro! Username não pode estar vazio" label="Username"  id="username" class="form-control" value="#{acesso.username}" required="true">
                                                     <f:passThroughAttribute name="placeholder" value="Username" />
                                                 </h:inputText>
                                                 <h:message for="username"></h:message>
                                             </div>
                                             <div class="form-group">
-                                                <h:inputSecret label="Senha" id="senha" class="form-control" value="#{acesso.senha}" required="true">
+                                                <h:inputSecret requiredMessage="Erro! Senha não pode estar vazia." label="Senha" id="senha" class="form-control" value="#{acesso.senha}" required="true">
                                                     <f:passThroughAttribute name="placeholder" value="Senha" />
                                                 </h:inputSecret>
                                                 <h:message for="senha"></h:message>
@@ -40,7 +41,12 @@
                                                     <f:passThroughAttribute name="placeholder" value="Tipo de usuário" />
                                                 </h:selectOneMenu> 	
                                             </div>
-                                            <h:commandButton class="btn btn-lg btn-success btn-block" type="submit" value="submit" action="#{acesso.login}"/>
+                                            <c:if test="#{acesso.messages != null}">
+                                            <div class="alert alert-danger" role="alert">
+                                                #{acesso.messages}
+                                            </div>
+                                            </c:if>
+                                            <h:commandButton class="btn btn-lg btn-success btn-block" type="submit" value="Enviar" action="#{acesso.login}"/>
                                         </fieldset>
                                     </h:form>
                                 </div>

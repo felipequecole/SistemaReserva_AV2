@@ -22,16 +22,7 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
     <error-page>
-        <error-code>404</error-code>
-        <location>/faces/erro.xhtml</location>
-    </error-page>
-    <error-page>
         <error-code>500</error-code>
-        <location>/faces/erro.xhtml</location>
+        <location>/error.xhtml</location>
     </error-page>
-    <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/faces/erro.xhtml</location>
-    </error-page>
-
 </web-app>
