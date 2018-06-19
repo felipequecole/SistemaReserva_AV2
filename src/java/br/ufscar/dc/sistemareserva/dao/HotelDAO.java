@@ -51,7 +51,7 @@ public class HotelDAO {
                 PreparedStatement ps = con.prepareStatement(CRIAR_HOTEL_SQL);) {
             ps.setString(1, hotel.getCnpj());
             ps.setString(2, hotel.getNome());
-            ps.setString(3, hotel.getCidade());
+            ps.setString(3, hotel.getCidade().toUpperCase());
             ps.setString(4, hotel.getSenha());
             ps.execute();
         }
@@ -104,7 +104,7 @@ public class HotelDAO {
         try (Connection con = datasource.getConnection();
                 PreparedStatement ps = con.prepareStatement(LISTAR_HOTEIS_CIDADE_SQL);) {
 
-            ps.setString(1, cidade);
+            ps.setString(1, cidade.toUpperCase());
 
             try (ResultSet rs = ps.executeQuery();) {
 
