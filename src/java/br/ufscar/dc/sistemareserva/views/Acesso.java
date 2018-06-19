@@ -148,7 +148,7 @@ public class Acesso implements Serializable {
     
     public String logout(){
         // descomenta essa linha pra ver que a pagina de erro ta sendo chamada
-        int a = 1 / 0; 
+        //int a = 1 / 0; 
         this.setMessages(null);
         this.setRole(null);
         this.setUser(null);
