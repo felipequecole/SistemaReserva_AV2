@@ -9,6 +9,7 @@ import br.ufscar.dc.sistemareserva.beans.Site;
 import br.ufscar.dc.sistemareserva.dao.SiteDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -25,7 +26,7 @@ import javax.naming.NamingException;
  */
 
 @Named
-@SessionScoped
+@RequestScoped
 public class NovoSite implements Serializable {
     @Inject SiteDAO siteDAO;
     Site dadosSite;
@@ -62,7 +63,7 @@ public class NovoSite implements Serializable {
         
         if (value.matches("[a-zA-Z]+")) {
             ((UIInput) toValidate).setValid(false);
-            FacesMessage message = new FacesMessage("Telefone não deve conter letras");
+            FacesMessage message = new FacesMessage("Erro: Telefone não deve conter letras!");
             context.addMessage(toValidate.getClientId(context), message);
         }
 
@@ -73,7 +74,7 @@ public class NovoSite implements Serializable {
         
         if (value.length() < 6) {
             ((UIInput) toValidate).setValid(false);
-            FacesMessage message = new FacesMessage("A senha deve conter no mínimo 6 caracteres");
+            FacesMessage message = new FacesMessage("Erro: A senha deve conter no mínimo 6 caracteres!");
             context.addMessage(toValidate.getClientId(context), message);
         }
 
