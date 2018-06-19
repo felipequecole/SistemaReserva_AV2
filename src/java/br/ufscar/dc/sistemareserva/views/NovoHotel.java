@@ -9,6 +9,7 @@ import br.ufscar.dc.sistemareserva.beans.Hotel;
 import br.ufscar.dc.sistemareserva.dao.HotelDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -24,7 +25,7 @@ import javax.naming.NamingException;
  * @author felipequecole
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class NovoHotel implements Serializable {
 
     @Inject
