@@ -32,6 +32,7 @@
                                 <c:when test="#{acesso.role == 'admin'}">
                                     <h:commandButton value="Cadastrar hotel" class="btn btn-primary" action="hotelForm"/>
                                     <h:commandButton style="margin-left: 5px" value="Cadastrar site" class="btn btn-primary" action="siteForm"/>
+                                    <h:commandButton style="margin-left: 5px" value="Listar sites" class="btn btn-primary" action="listaSites"/>
                                 </c:when>
                                 <c:when test="#{acesso.role == 'site'}">
                                     <h:commandButton value="Ver promoções" class="btn btn-primary" action="#{listaPromocao.verPromocoesSite(acesso.url)}"/>
